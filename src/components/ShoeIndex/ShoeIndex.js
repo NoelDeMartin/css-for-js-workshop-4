@@ -28,16 +28,13 @@ const ShoeIndex = ({ sortId, setSortId }) => {
         <ShoeGrid />
       </MainColumn>
       <LeftColumn>
-        <BreadcrumbsWrapper>
-          <BreadcrumbsFiller aria-hidden="true">Filler</BreadcrumbsFiller>
-          <Breadcrumbs>
-            <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
-            <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
-            <Breadcrumbs.Crumb href="/sale/shoes">
-              Shoes
-            </Breadcrumbs.Crumb>
-          </Breadcrumbs>
-        </BreadcrumbsWrapper>
+        <Breadcrumbs>
+          <Breadcrumbs.Crumb href="/">Home</Breadcrumbs.Crumb>
+          <Breadcrumbs.Crumb href="/sale">Sale</Breadcrumbs.Crumb>
+          <Breadcrumbs.Crumb href="/sale/shoes">
+            Shoes
+          </Breadcrumbs.Crumb>
+        </Breadcrumbs>
         <Spacer size={42} />
         <ShoeSidebar />
       </LeftColumn>
@@ -48,15 +45,16 @@ const ShoeIndex = ({ sortId, setSortId }) => {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row-reverse;
+  align-items: baseline;
   gap: 32px;
 `;
 
 const LeftColumn = styled.div`
-  flex: 1;
+  flex-basis: 248px;
 `;
 
 const MainColumn = styled.div`
-  flex: 5;
+  flex: 1;
 `;
 
 const Header = styled.header`
@@ -68,18 +66,6 @@ const Header = styled.header`
 const Title = styled.h2`
   font-size: 1.5rem;
   font-weight: ${WEIGHTS.medium};
-`;
-
-const BreadcrumbsFiller = styled.div`
-  font-size: 1.5rem;
-  width: 0;
-  visibility: hidden;
-`;
-
-const BreadcrumbsWrapper = styled.div`
-  height: 42px;
-  display: flex;
-  align-items: baseline;
 `;
 
 export default ShoeIndex;
