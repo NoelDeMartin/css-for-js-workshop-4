@@ -32,7 +32,7 @@ const ShoeCard = ({
       : 'default'
 
   return (
-    <Link href={`/shoe/${slug}`}>
+    <Link href={`/shoe/${slug}`} variant={variant}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
@@ -44,18 +44,56 @@ const ShoeCard = ({
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          { salePrice && <SalePrice>{formatPrice(salePrice)}</SalePrice> }
         </Row>
       </Wrapper>
     </Link>
   );
 };
 
+const Variants = {
+  'on-sale': {
+    tagText: 'Sale',
+    tagColor: COLORS.primary,
+    priceTextDecoration: 'line-through',
+    priceColor: COLORS.gray[700],
+  },
+  'new-release': {
+    tagText: 'Just Released!',
+    tagColor: COLORS.secondary,
+  },
+  default: {
+    tagDisplay: 'none',
+  },
+};
+
 const Link = styled.a`
+  --tag-display: ${({ variant }) => Variants[variant].tagDisplay };
+  --tag-text: "${({ variant }) => Variants[variant].tagText }";
+  --tag-color: ${({ variant }) => Variants[variant].tagColor };
+  --price-color: ${({ variant }) => Variants[variant].priceColor };
+  --price-text-decoration: ${({ variant }) => Variants[variant].priceTextDecoration };
+
   text-decoration: none;
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  position: relative;
+
+  &::after {
+    display: var(--tag-display);
+    content: var(--tag-text);
+    position: absolute;
+    top: 12px;
+    right: -4px;
+    background: var(--tag-color);
+    color: ${COLORS.white};
+    padding: 9px;
+    border-radius: 2px;
+    font-weight: 700;
+  }
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -77,7 +115,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  color: var(--price-color);
+  text-decoration-line: var(--price-text-decoration);
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
